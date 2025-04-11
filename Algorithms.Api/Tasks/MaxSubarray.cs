@@ -1,3 +1,4 @@
+using Algorithms.Api.Helpers;
 using System.Diagnostics;
 
 namespace Algorithms.Api;
@@ -87,20 +88,15 @@ public static class MaxSubarray
     public static AlgorithmPerformance MeasurePerformance(Func<int[], int> method, int[] nums)
     {
         var stopwatch = new Stopwatch();
-        var memoryBefore = GC.GetTotalMemory(true);
         
         stopwatch.Start();
         var result = method(nums);
         stopwatch.Stop();
         
-        var memoryAfter = GC.GetTotalMemory(true);
-        var memoryUsed = memoryAfter - memoryBefore;
-        
         return new AlgorithmPerformance
         {
             Result = result,
             ExecutionTimeMs = stopwatch.ElapsedMilliseconds,
-            MemoryUsedBytes = memoryUsed
         };
     }
 } 

@@ -16,12 +16,7 @@ public class MaxSubarrayController : ControllerBase
 
         var performance = MaxSubarray.MeasurePerformance(MaxSubarray.FindMaxSubarrayBruteForce, nums);
         
-        return Ok(new
-        {
-            result = performance.Result,
-            executionTimeMs = performance.ExecutionTimeMs,
-            memoryUsedBytes = performance.MemoryUsedBytes
-        });
+        return Ok(performance);
     }
 
     [HttpPost("dp")]
@@ -34,12 +29,7 @@ public class MaxSubarrayController : ControllerBase
 
         var performance = MaxSubarray.MeasurePerformance(MaxSubarray.FindMaxSubarrayDP, nums);
         
-        return Ok(new
-        {
-            result = performance.Result,
-            executionTimeMs = performance.ExecutionTimeMs,
-            memoryUsedBytes = performance.MemoryUsedBytes
-        });
+        return Ok(performance);
     }
 
     [HttpPost("kadane")]
@@ -52,11 +42,6 @@ public class MaxSubarrayController : ControllerBase
 
         var performance = MaxSubarray.MeasurePerformance(MaxSubarray.FindMaxSubarrayKadane, nums);
         
-        return Ok(new
-        {
-            result = performance.Result,
-            executionTimeMs = performance.ExecutionTimeMs,
-            memoryUsedBytes = performance.MemoryUsedBytes
-        });
+        return Ok(performance);
     }
 } 

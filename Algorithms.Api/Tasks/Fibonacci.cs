@@ -1,3 +1,4 @@
+using Algorithms.Api.Helpers;
 using System.Diagnostics;
 
 namespace Algorithms.Api;
@@ -65,27 +66,15 @@ public static class Fibonacci
     public static AlgorithmPerformance MeasurePerformance(Func<int, long> fibMethod, int n)
     {
         var stopwatch = new Stopwatch();
-        var memoryBefore = GC.GetTotalMemory(true);
         
         stopwatch.Start();
         var result = fibMethod(n);
         stopwatch.Stop();
         
-        var memoryAfter = GC.GetTotalMemory(true);
-        var memoryUsed = memoryAfter - memoryBefore;
-        
         return new AlgorithmPerformance
         {
             Result = result,
             ExecutionTimeMs = stopwatch.ElapsedMilliseconds,
-            MemoryUsedBytes = memoryUsed
         };
     }
 }
-
-public class AlgorithmPerformance
-{
-    public long Result { get; set; }
-    public long ExecutionTimeMs { get; set; }
-    public long MemoryUsedBytes { get; set; }
-} 
