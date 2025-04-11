@@ -19,19 +19,6 @@ public class MaxSubarrayController : ControllerBase
         return Ok(performance);
     }
 
-    [HttpPost("dp")]
-    public IActionResult DynamicProgramming([FromBody] int[] nums)
-    {
-        if (nums == null || nums.Length == 0)
-        {
-            return BadRequest("Input array cannot be null or empty");
-        }
-
-        var performance = MaxSubarray.MeasurePerformance(MaxSubarray.FindMaxSubarrayDP, nums);
-        
-        return Ok(performance);
-    }
-
     [HttpPost("kadane")]
     public IActionResult Kadane([FromBody] int[] nums)
     {

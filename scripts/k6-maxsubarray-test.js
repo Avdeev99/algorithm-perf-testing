@@ -4,7 +4,6 @@ import { Trend, Rate } from 'k6/metrics';
 
 // Custom metrics
 const bruteForceTimeTrend = new Trend('bruteforce_response_time');
-const dpTimeTrend = new Trend('dp_response_time');
 const kadaneTimeTrend = new Trend('kadane_response_time');
 const errorRate = new Rate('error_rate');
 
@@ -30,7 +29,6 @@ const OPTIMIZED_SIZES = [10, 50, 100, 200, 500, 1000, 2000];
 
 // Configuration flags
 const RUN_BRUTE_FORCE = true;
-const RUN_DP = true;
 const RUN_KADANE = true;
 
 // Generate test arrays of different sizes
@@ -73,39 +71,6 @@ export default function () {
       } else {
         errorRate.add(1);
         console.log(`Error with Brute Force (size ${size}): ${bruteForceRes.status}, ${bruteForceRes.body}`);
-      }
-    }
-  }
-
-  // Test DP implementation
-  if (RUN_DP) {
-    console.log('Running DP implementation');
-    for (const size of OPTIMIZED_SIZES) {
-      const testArray = generateTestArray(size);
-      const dpUrl = `${API_BASE_URL}/max-subarray/dp`;
-      const dpRes = http.post(dpUrl, JSON.stringify(testArray), {
-        headers: { 'Content-Type': 'application/json' },
-      });
-      
-      // Record metrics
-      const dpSuccess = check(dpRes, {
-        'DP status 200': (r) => r.status === 200,
-        'DP valid response': (r) => {
-          try {
-            const data = JSON.parse(r.body);
-            return data.result !== undefined;
-          } catch (e) {
-            return false;
-          }
-        }
-      });
-      
-      if (dpSuccess) {
-        dpTimeTrend.add(dpRes.timings.duration, { size: size });
-        console.log(`DP (size ${size}): ${dpRes.timings.duration}ms`);
-      } else {
-        errorRate.add(1);
-        console.log(`Error with DP (size ${size}): ${dpRes.status}, ${dpRes.body}`);
       }
     }
   }

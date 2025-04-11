@@ -1,6 +1,4 @@
-using System.Diagnostics;
 using Algorithms.Api;
-using Xunit;
 using Xunit.Abstractions;
 
 namespace Algorithms.Tests.Tasks;
@@ -24,12 +22,10 @@ public class MaxSubarrayTests
     {
         // Act
         var bruteForceResult = MaxSubarray.FindMaxSubarrayBruteForce(nums);
-        var dpResult = MaxSubarray.FindMaxSubarrayDP(nums);
         var kadaneResult = MaxSubarray.FindMaxSubarrayKadane(nums);
 
         // Assert
         Assert.Equal(expected, bruteForceResult);
-        Assert.Equal(expected, dpResult);
         Assert.Equal(expected, kadaneResult);
     }
 
@@ -65,25 +61,6 @@ public class MaxSubarrayTests
     }
 
     [Fact]
-    public void DynamicProgramming_PassesPerformanceTest()
-    {
-        // Arrange
-        const int arraySize = 10000;
-        const int timeThresholdMs = 10;
-        var nums = GenerateRandomArray(arraySize);
-        
-        // Act
-        var performance = MaxSubarray.MeasurePerformance(MaxSubarray.FindMaxSubarrayDP, nums);
-        
-        // Output results
-        _output.WriteLine($"DP (size {arraySize}) time: {performance.ExecutionTimeMs}ms");
-        
-        // Assert - Should be fast for large inputs
-        Assert.True(performance.ExecutionTimeMs < timeThresholdMs, 
-            $"DP solution exceeded time threshold: {performance.ExecutionTimeMs}ms > {timeThresholdMs}ms");
-    }
-
-    [Fact]
     public void Kadane_PassesPerformanceTest()
     {
         // Arrange
@@ -100,30 +77,5 @@ public class MaxSubarrayTests
         // Assert - Should be fast for large inputs
         Assert.True(performance.ExecutionTimeMs < timeThresholdMs, 
             $"Kadane solution exceeded time threshold: {performance.ExecutionTimeMs}ms > {timeThresholdMs}ms");
-    }
-
-    [Fact]
-    public void ComparativePerformance_ShowsAlgorithmicDifferences()
-    {
-        // Arrange - Use a size that won't hang the test but shows differences
-        const int arraySize = 1000;
-        var nums = GenerateRandomArray(arraySize);
-        
-        // Act - Measure execution time for all implementations
-        var bruteForcePerf = MaxSubarray.MeasurePerformance(MaxSubarray.FindMaxSubarrayBruteForce, nums);
-        var dpPerf = MaxSubarray.MeasurePerformance(MaxSubarray.FindMaxSubarrayDP, nums);
-        var kadanePerf = MaxSubarray.MeasurePerformance(MaxSubarray.FindMaxSubarrayKadane, nums);
-        
-        // Output results for visibility
-        _output.WriteLine($"Brute Force (size {arraySize}) time: {bruteForcePerf.ExecutionTimeMs}ms");
-        _output.WriteLine($"DP (size {arraySize}) time: {dpPerf.ExecutionTimeMs}ms");
-        _output.WriteLine($"Kadane (size {arraySize}) time: {kadanePerf.ExecutionTimeMs}ms");
-        
-        // Assert relationships
-        Assert.True(bruteForcePerf.ExecutionTimeMs > dpPerf.ExecutionTimeMs,
-            "Brute force should be slower than DP approach");
-            
-        Assert.True(dpPerf.ExecutionTimeMs >= kadanePerf.ExecutionTimeMs,
-            "DP approach should be slower than or equal to Kadane's algorithm");
     }
 } 

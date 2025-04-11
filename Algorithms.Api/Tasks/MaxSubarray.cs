@@ -3,6 +3,9 @@ using System.Diagnostics;
 
 namespace Algorithms.Api;
 
+/// <summary>
+/// Given an integer array nums, find the subarray with the largest sum, and return its sum.
+/// </summary>
 public static class MaxSubarray
 {
     /// <summary>
@@ -29,31 +32,6 @@ public static class MaxSubarray
                 subarrays[i, j] = currentSum;
                 maxSum = Math.Max(maxSum, currentSum);
             }
-        }
-
-        return maxSum;
-    }
-
-    /// <summary>
-    /// Dynamic Programming approach that stores intermediate results.
-    /// Time Complexity: O(n)
-    /// Space Complexity: O(n)
-    /// </summary>
-    public static int FindMaxSubarrayDP(int[] nums)
-    {
-        if (nums == null || nums.Length == 0)
-            return 0;
-
-        // dp[i] represents the maximum subarray sum ending at index i
-        int[] dp = new int[nums.Length];
-        dp[0] = nums[0];
-        int maxSum = dp[0];
-
-        for (int i = 1; i < nums.Length; i++)
-        {
-            // Either start a new subarray or continue the previous one
-            dp[i] = Math.Max(nums[i], dp[i - 1] + nums[i]);
-            maxSum = Math.Max(maxSum, dp[i]);
         }
 
         return maxSum;
