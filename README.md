@@ -24,19 +24,14 @@ The project includes three different Fibonacci implementations:
 
 ### Maximum Subarray
 
-The project also includes three implementations of the maximum subarray problem:
+The project also includes two implementations of the maximum subarray problem:
 
 1. **Brute Force** (O(n²) time, O(n²) space)
    - Stores all possible subarrays in a 2D array
    - Very inefficient in both time and space
    - Simple to understand but impractical for larger inputs
 
-2. **Dynamic Programming** (O(n) time, O(n) space)
-   - Uses a 1D array to store intermediate results
-   - Much more efficient than brute force
-   - Still uses linear space
-
-3. **Kadane's Algorithm** (O(n) time, O(1) space)
+2. **Kadane's Algorithm** (O(n) time, O(1) space)
    - Only tracks current and maximum sum
    - Most efficient in both time and space
    - Optimal solution with constant space complexity
