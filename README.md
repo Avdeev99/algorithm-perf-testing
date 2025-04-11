@@ -1,8 +1,10 @@
 # Algorithm Performance Testing
 
-This project demonstrates the importance of algorithm time and space complexity using the Fibonacci sequence as an example.
+This project demonstrates the importance of algorithm time and space complexity using multiple examples.
 
 ## Implementations
+
+### Fibonacci Sequence
 
 The project includes three different Fibonacci implementations:
 
@@ -19,6 +21,25 @@ The project includes three different Fibonacci implementations:
    - Most efficient implementation overall
    - Constant space complexity
    - Linear time complexity
+
+### Maximum Subarray
+
+The project also includes three implementations of the maximum subarray problem:
+
+1. **Brute Force** (O(n²) time, O(n²) space)
+   - Stores all possible subarrays in a 2D array
+   - Very inefficient in both time and space
+   - Simple to understand but impractical for larger inputs
+
+2. **Dynamic Programming** (O(n) time, O(n) space)
+   - Uses a 1D array to store intermediate results
+   - Much more efficient than brute force
+   - Still uses linear space
+
+3. **Kadane's Algorithm** (O(n) time, O(1) space)
+   - Only tracks current and maximum sum
+   - Most efficient in both time and space
+   - Optimal solution with constant space complexity
 
 ## Testing Methods
 
@@ -44,13 +65,21 @@ cd Algorithms.Api
 dotnet run
 ```
 
-2. In a separate terminal, run the k6 test:
+2. In a separate terminal, run the k6 tests:
+
+For Fibonacci tests:
 ```
 k6 run scripts/k6-fibonacci-test.js
 ```
 
-The k6 test will provide metrics on:
+For Maximum Subarray tests:
+```
+k6 run scripts/k6-maxsubarray-test.js
+```
+
+The k6 tests will provide metrics on:
 - Request durations for each implementation
+- Memory usage for each implementation
 - Error rates
 - Comparative performance between implementations
 
@@ -59,15 +88,16 @@ The k6 test will provide metrics on:
 ### K6 Results
 
 The k6 tests demonstrate:
-- How response times scale with increasing input size for each algorithm
-- How the recursive implementation quickly becomes unusable for larger inputs
-- The relative performance advantage of the iterative implementation over memoization
+- How response times and memory usage scale with increasing input size for each algorithm
+- How inefficient algorithms quickly become unusable for larger inputs
+- The relative performance advantage of efficient algorithms
 
 ### Business Impact
 
 This demonstration shows why algorithm selection matters:
 - Inefficient algorithms can lead to timeout errors, server crashes, and poor user experience
 - Even for small inputs, the differences can be significant under load
+- Space complexity is especially important in memory-constrained environments
 - Proper algorithm selection has a direct impact on infrastructure costs and scalability
 
 ## Requirements
