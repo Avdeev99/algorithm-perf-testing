@@ -48,7 +48,7 @@ The project also includes three implementations of the maximum subarray problem:
 The project includes unit tests that:
 - Verify correctness of each implementation
 - Demonstrate time complexity differences
-- Compare memory usage
+- Compare theoretical space requirements
 
 To run unit tests:
 ```
@@ -79,7 +79,6 @@ k6 run scripts/k6-maxsubarray-test.js
 
 The k6 tests will provide metrics on:
 - Request durations for each implementation
-- Memory usage for each implementation
 - Error rates
 - Comparative performance between implementations
 
@@ -88,7 +87,7 @@ The k6 tests will provide metrics on:
 ### K6 Results
 
 The k6 tests demonstrate:
-- How response times and memory usage scale with increasing input size for each algorithm
+- How response times scale with increasing input size for each algorithm
 - How inefficient algorithms quickly become unusable for larger inputs
 - The relative performance advantage of efficient algorithms
 
@@ -97,7 +96,7 @@ The k6 tests demonstrate:
 This demonstration shows why algorithm selection matters:
 - Inefficient algorithms can lead to timeout errors, server crashes, and poor user experience
 - Even for small inputs, the differences can be significant under load
-- Space complexity is especially important in memory-constrained environments
+- Space complexity is especially important in memory-constrained environments (theoretical analysis only)
 - Proper algorithm selection has a direct impact on infrastructure costs and scalability
 
 ## Requirements
